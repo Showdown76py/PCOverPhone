@@ -1,0 +1,63 @@
+<body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.css') }}">
+        <script>
+            function sendRequest(value) {
+                $.ajax({
+                    url: '/custom_streamdeck',
+                    async: true,
+                    method: "POST",
+                    data: {"app": value},
+                    dataType: 'json',
+                    success: function(data) {
+                        authorized = data['authorized'];
+                        if (authorized==true) {
+                            setTimeout(function(){document.body.style.backgroundColor = "#212921";}, 0);
+                            setTimeout(function(){document.body.style.backgroundColor = "#212529";}, 400);
+                        } else if (authorized==false) {
+                            setTimeout(function(){document.body.style.backgroundColor = "#FF000E";}, 0);
+                            setTimeout(function(){document.body.style.backgroundColor = "#212529";}, 400);
+                        } else {
+                            setTimeout(function(){document.body.style.backgroundColor = "#FF000E";}, 0  );
+                            setTimeout(function(){document.body.style.backgroundColor = "#212529";}, 400);
+                        }
+                    }
+                    
+                });
+            }
+        </script>
+        
+        <div class='ctm-container' style='padding: 40px; padding-left: 80px; padding-right: 80px'>
+            {% for prog in e %}
+                <div class='row'>
+                    <div class='col-6'>
+                        <button class='btn btn-success btn-lg btn-block' type="submit" name='sub' style="background-color: #282828; color: rgb(215, 215, 215); border-color: rgb(5, 5, 5); margin-bottom: 15px" onclick="sendRequest('{{ prog[0][0] }}')">{{ prog[0][1] }}</button>
+                    </div>
+                    {% if len(prog) == 2 %}
+                    <div class='col-6'>
+                        <button class='btn btn-success btn-lg btn-block' type="submit" name='sub' style="background-color: #282828; color: rgb(215, 215, 215); border-color: rgb(5, 5, 5); margin-bottom: 15px" onclick="sendRequest('{{ prog[1][0] }}')">{{ prog[1][1] }}</button>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <h1 id='kmhs'>-- km/h</h1>
+
+        <script>
+            function setKmH() {
+                $.ajax({
+                    url: '/bs21/getkmh',
+                    async: true,
+                    method: "GET",
+                    dataType: 'json',
+                    success: function(data) {
+                        document.getElementById('kmhs').innerText = data['result'];
+                    }   
+                    
+                });
+            }
+            setInterval(function(){ 
+                setKmH();
+            }, 10);
+        </script>
+</body>

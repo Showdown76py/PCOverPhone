@@ -1,0 +1,5 @@
+flask
+zroya
+easygui
+pynput
+pyautogui

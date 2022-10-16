@@ -1,0 +1,87 @@
+    {
+    "actions": {
+        "Saluer": {
+            "description": "Dire bonjour en \u00e9crivant 'Bonjour, comment \u00e7a va ?'",
+            "button": "\u00c9crire le texte",
+            "action": {
+                "type": "keyboard",
+                "action": "Bonjour, comment \u00e7a va ?",
+                "run_enter": true
+            }
+        },
+        "Ouvrir Google Chrome": {
+            "description": "Lancer le navigateur Google Chrome en un clique.",
+            "button": "Ouvrir",
+            "action": {
+                "type": "app",
+                "action": "start chrome"
+            }
+        },
+        "Never gonna give you up": {
+            "description": "Launches Never Gonna Give You Up by Rick Astley",
+            "button": "Rick Roll",
+            "action": {
+                "type": "website",
+                "action": "https://youtube.com/watch?v=dQw4w9WgXcQ&autoplay=1"
+            }
+        },
+        "Type something annyoing": {
+            "description": "type something very very annoying!",
+            "button": "Type this",
+            "action": {
+                "type": "keyboard",
+                "action": "Hello. I hope you\u2019re doing well. For my case, I am automatically writing this message. A program is doing it. This text should be annoying to read. Bye?",
+                "run_enter": true
+            }
+        },
+        "dire cccv": {
+            "description": "commande faite sur oculus",
+            "button": "d\u00e9marrer",
+            "action": {
+                "type": "cmd",
+                "action": "start cmd /C echo cccv && pause>NUL"
+            }
+        },
+        "salut": {
+            "description": "yo",
+            "button": "print",
+            "action": {
+                "type": "python",
+                "action": "print(\"yo\")"
+            }
+        },
+        "nonoxcat": {
+            "description": "vive nonoxcat",
+            "button": "salut nonoxcat",
+            "action": {
+                "type": "python",
+                "action": "print('nonoxcat')"
+            }
+        },
+        "antiafk": {
+            "description": "Appuyez sur Z et S pour se deplacer et anti afk",
+            "button": "Cliquer",
+            "action": {
+                "type": "keyboard",
+                "action": "zzzzzzzzzzzzzzzzzsssssss",
+                "run_enter": false
+            }
+        },
+        "Roblox": {
+            "description": "D\u00e9marrer Roblox directement",
+            "button": "Lancer",
+            "action": {
+                "type": "app",
+                "action": "C:\\Users\\lony7\\AppData\\Local\\Roblox\\Versions\\version-dc9e744f72c94313\\RoboxPlayerLauncher.exe"
+            }
+        },
+        "Rampe Handicap\u00e9": {
+            "description": "ouvrir rampe handicap\u00e9e",
+            "button": "Rampe Handicap\u00e9e",
+            "action": {
+                "type": "gamekey",
+                "action": "g"
+            }
+        }
+    }
+}

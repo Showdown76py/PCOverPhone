@@ -1,0 +1,44 @@
+<body>
+    {%include "base.html"%}
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.css') }}">
+    
+    {%if showran%}
+    <div class='container-fluid'>
+        <div class="alert alert-success" role="alert">
+            <b>Programme: </b>lancé avec succès !
+        </div>
+    </div>
+    {%endif%}
+    <h3>Lancer des programmes sur l'ordinateur</h3>
+    {%if programsqm%}
+        <p>Il n'y a aucun programme de set-up.</p>
+        <button type="button" class="btn btn-dark" disabled>Modifiez pc_api/assets/programs.json en suivant le patterne.</button>
+    {%else%}
+        <form method="post">
+            <!--{% for prog in e %}
+                {% if not prog[0][0].upper() == prog[0] %}
+                    <button class='btn btn-success btn-lg btn-block' type="submit" name='start-application' style="background-color: #1a0631; color: rgb(255, 255, 255); border-color: rgb(0, 0, 0); margin-bottom: 15px" value="{{ prog[0] }}">App {{ prog[0] }}</button>
+                {% else %}
+                    <button type="submit" class="btn btn-danger" name='start-application' value='{{ prog[0] }}'>{{ prog[0] }}</button><br/><br/>
+                {% endif %}
+            {%endfor%}-->
+            <div class='ctm-container' style='padding: 40px; padding-left: 80px; padding-right: 80px'>
+                {% for prog in e %}
+                    <div class='row'>
+                        <div class='col-6'>
+                            <button class='btn btn-success btn-lg btn-block' type="submit" name='start-application' style="background-color: #282828; color: rgb(215, 215, 215); border-color: rgb(5, 5, 5); margin-bottom: 15px" value="{{ prog[0][0] }}">App {{ prog[0][0] }}</button>
+                        </div>
+                        {% if len(prog) == 2 %}
+                            <div class='col-6'>
+                                <button class='btn btn-success btn-lg btn-block' type="submit" name='start-application' style="background-color: #282828; color: rgb(215, 215, 215); border-color: rgb(5, 5, 5); margin-bottom: 15px" value="{{ prog[1][0] }}">App {{ prog[1][0] }}</button>
+                            </div>
+                        {% endif %}
+                        
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    {%endif%}
+</body>
+
+{% include "footer.html" %} 

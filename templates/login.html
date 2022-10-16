@@ -1,0 +1,42 @@
+<body>
+    {%include "base.html"%}
+    <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/main.css') }}"> -->
+    {{ machineip }}
+    <form method="post">
+        <div class="imgcontainer">
+        </div>
+        {% if invalid %}
+            <center><warning type='error'>Utilisateur ou mot de passe invalide.</warning></center>
+        {% endif %}
+        {% if loggedout %}
+            <center><warning type='error'>Déconnecté pour des raisons de sécurité.</warning></center>
+        {% endif %}
+        <div class="container">
+            {% if not authentificated %}
+                <label for="uname"><b>Nom d'utilisateur</b></label>
+                {% if not debug %}
+                    <input type="text" class='form-control' placeholder="Entrez votre nom d'utilisateur" name="uname" required>
+                {% else %}
+                    <input type="text" class='form-control' placeholder="Entrez votre nom d'utilisateur" name="uname" value='DEBUG' required>
+                {% endif %}
+                <br/>
+                <label for="psw"><b>Mot de passe</b></label>
+                {% if not debug %}
+                    <input type="password" class='form-control' placeholder="Entrez votre mot de passe" name="psw" required>
+                {% else %}
+                    <input type="password" class='form-control' placeholder="Entrez votre mot de passe" name="psw" value='{{ debugpassword }}' required>
+                {% endif %}<br/><br/>
+                <button class="btn btn-success" type="submit">Se connecter</button>
+                </div>
+            {% else %}
+                <!-- <center><br/><warning type=valid>Vous vous êtes connecté avec succès.</warning><br/><br/>
+                <a href='/openprograms'>Lancer des programmes sur l'ordinateur</a><br/><br/><br/>
+                <a href='/openlink'>Ouvrir des liens sur l'ordinateur</a><br/><br/><br/>
+                <a href='/opencustom'>Exécuter des actions personnalisées</a><br/><br/><br/>
+                </center> -->
+                <script>window.location.href = '/'</script>
+                
+            {% endif %}
+    </form>
+</body>
+{% include "footer.html" %} 

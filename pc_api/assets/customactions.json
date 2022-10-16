@@ -1,0 +1,36 @@
+{
+    "actions": {
+        "Rampe Handicap\u00e9": {
+            "description": "ouvrir rampe handicap\u00e9e",
+            "button": "Rampe Handicap\u00e9e",
+            "action": {
+                "type": "gamekey",
+                "action": "g"
+            }
+        },
+        "toutes les portes": {
+            "description": "ouvrir rampe handicap\u00e9e",
+            "button": "Ouvrir portes",
+            "action": {
+                "type": "gamekey",
+                "action": "w"
+            }
+        },
+        "sortir cockpit": {
+            "description": "ouvrir rampe handicap\u00e9e",
+            "button": "Sortir Cockpit",
+            "action": {
+                "type": "gamekey",
+                "action": "c"
+            }
+        },
+        "Warning": {
+            "description": "warning lights",
+            "button": "Feux de d\u00e9tresse",
+            "action": {
+                "type": "gamekey",
+                "action": "!"
+            }
+        }
+    }
+}

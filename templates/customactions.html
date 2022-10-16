@@ -1,0 +1,107 @@
+{% include "base.html" %}
+{% block content %}
+<body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.css') }}">
+    <div class="alert alert-info" role="alert">
+        <b>Howto: </b>modifiez les actions personnalisées directement dans <i>pc_api/assets/custom_actions.json</i> en suivant le pattern.
+    </div>
+    <center>
+        <div class="container" style="margin-bottom: 12px">
+            <button type="createapp" id="createapp" class="btn btn-dark">Créer l'action en ligne</button>
+            <button id="createappwait" class="btn btn-dark" type="button" disabled style='background-color: #2D3338'>
+                <span class="spinner-border spinner-border-sm" role="status" ></span>
+                <span class="visually-hidden">Autorisez l'authentification sur votre PC</span>
+            </button>
+            <button disabled id=denied type="button" class="btn btn-danger">Requête refusée</button>
+            <button disabled id=error type="button" class="btn btn-danger">Erreur, réponse inattendue</button>
+            <button disabled id=authorized type="button" class="btn btn-success">Requête acceptée, vous serez redirigé bientôt...</button>
+
+            <script>
+                $(function() {
+                    $('#denied').hide();
+                    $('#error').hide();
+                    $('#authorized').hide();
+                    $('#createappwait').hide();
+                    $('#createapp').on('click', function(e) {
+                        $('#createapp').hide();
+                        $('#createappwait').show();
+
+                        $.ajax({
+                            url: '/opencustom/progress/',
+                            async: true,
+                            method: "POST",
+                            data: {"type": "create_actions"},
+                            dataType: 'json',
+                            success: function(data) {
+                                authorized = data['authorized'];
+                                authorization = data['authorization'];
+                                $('#createappwait').hide();
+                                if (authorized==true) {
+                                    $('#authorized').show();
+                                    setTimeout(function(){window.location.href = `/createaction?authorization=${authorization}`;}, 3000);
+                                } else if (authorized==false) {
+                                    $('#denied').show();
+                                } else {
+                                    $('#error').show();
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </center>
+    {%if showran%}
+        <div class='container-fluid'>
+            <div class="alert alert-success" role="alert">
+                <b>Programme: </b>lancé avec succès !
+            </div>
+        </div>
+    {%endif%}
+    <h3>Actions personnalisées</h3>
+    <p>Choisissez l'action personnalisée</p>
+    <a href='/custom_streamdeck'>Streamdeck Mode</a>
+    <div class="container">
+        <form id="customactions" name="customactions" method="post">
+            <div class="row">
+                {% for prog in e %}
+                    <div class="col-sm-6" style="padding-right: 6px; padding-left: 6px; padding-bottom: 12px">
+                        <div class="card" style="border-radius: .65rem!important; border-color: rgba(0, 0, 0, 0.3)">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ prog[0] }}</h5>
+                                {% if prog[-1] == "keyboard" %}
+                                    <h6 class="card-subtitle mb-2 text-muted">Clavier</h6>
+                                {% elif prog[-1] == "cmd" %}
+                                    <h6 class="card-subtitle mb-2 text-muted">Commande Windows</h6>
+                                {% elif prog[-1] == "website" %}   
+                                    <h6 class="card-subtitle mb-2 text-muted">Site Web</h6>
+                                {% elif prog[-1] == "app" %}
+                                    <h6 class="card-subtitle mb-2 text-muted">Application</h6>
+                                {% elif prog[-1] == "python" %}
+                                    <h6 class="card-subtitle mb-2 text-muted">Script Python</h6>
+                                {% elif prog[-1] == "gamekey" %}
+                                    <h6 class="card-subtitle mb-2 text-muted">Touche pour jeu</h6>
+                                
+                                {% else %}  
+                                    <h6 class="card-subtitle mb-2 text-muted">Inconnu</h6>
+                                {% endif %}
+                                <p class="card-text">{{ prog[2] }}</p>
+                                <button type="submit" class="btn btn-primary" name='sub' value='{{ prog[0] }}'>{{ prog[1] }}</button>
+                            </div>
+                        </div>
+                    </div>
+                {%endfor%}
+
+            </div> 
+        </form>
+    </div>
+
+    
+
+
+    
+</body>
+{% endblock %}
+
+{% include "footer.html" %} 

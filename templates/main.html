@@ -1,0 +1,17 @@
+<body>
+    {%include "base.html"%}
+    <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/main.css') }}"> -->
+    <center><br/><warning type=valid>Bienvenue sur le menu principal.</warning><br/><br/>
+        
+        <div class="container">
+            <button class='btn btn-secondary btn-lg btn-block' style="background-color: #383c3f; border-color: #000; margin-bottom: 15px" onclick="window.location.href='/openprograms'">Lancer des programmes sur l'ordinateur</a>
+            <button class='btn btn-secondary btn-lg btn-block' style="background-color: #383c3f; border-color: #000; margin-bottom: 15px" onclick="window.location.href='/openlink'">Ouvrir des liens sur l'ordinateur</a>
+            <button class='btn btn-secondary btn-lg btn-block' style="background-color: #383c3f; border-color: #000; margin-bottom: 15px" onclick="window.location.href='/opencustom'">Exécuter des actions personnalisées</a>
+            <button class='btn btn-secondary btn-lg btn-block' style="background-color: #2e5574; border-color: #000; margin-bottom: 15px" onclick="window.location.href='/screenshots'">Captures d'écran</a>
+            <button class='btn btn-secondary btn-lg btn-block' style="background-color: #b33027; border-color: rgb(214, 72, 72); margin-bottom: 15px; margin-top: 35px" onclick="window.location.href='/suspend'">Suspendre temporairement<a>
+        </div>
+        
+        </center>
+</body>
+
+{% include "footer.html" %} 

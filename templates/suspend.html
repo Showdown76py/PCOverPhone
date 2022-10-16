@@ -1,0 +1,55 @@
+{% include "base.html" %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<div class="container">
+    <h1>Suspendre temporairement le service PCOverPhone</h1> 
+
+    <h5>jusqu'à réactivation</h2> 
+</div>
+<hr style="clear:both;"/>
+<div class="container" style="margin-bottom: 12px">
+    <button type="createapp" id="createapp" class="btn btn-danger">Suspendre le service temporairement</button>
+    <button id="createappwait" class="btn btn-dark" type="button" disabled style='background-color: #2D3338'>
+        <span class="spinner-border spinner-border-sm" role="status" ></span>
+        <span class="visually-hidden">Autorisez l'action sur votre ordinateur</span>
+    </button>
+    <button disabled id=denied type="button" class="btn btn-danger">Le service ne sera pas désactivé car vous avez refusé.</button>
+    <button disabled id=error type="button" class="btn btn-danger">Réponse inattendue de la part de l'ordinateur</button>
+    <button disabled id=authorized type="button" class="btn btn-success">Le service est désormais désactivé.</button>
+
+    <script>
+        $(function() {
+            $('#denied').hide();
+            $('#error').hide();
+            $('#authorized').hide();
+            $('#createappwait').hide();
+            $('#createapp').on('click', function(e) {
+                $('#createapp').hide();
+                $('#createappwait').show();
+
+                $.ajax({
+                    url: '/suspend/progress/',
+                    async: true,
+                    method: "POST",
+                    data: {"type": "create_actions"},
+                    dataType: 'json',
+                    success: function(data) {
+                        authorized = data['authorized'];
+                        authorization = data['authorization'];
+                        $('#createappwait').hide();
+                        if (authorized==true) {
+                            $('#authorized').show();
+                            //setTimeout(function(){window.location.href = `/suspend?authorization=${authorization}`;}, 3000);
+                        } else if (authorized==false) {
+                            $('#denied').show();
+                        } else {
+                            $('#error').show();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</div>
+
+{% include "footer.html" %}

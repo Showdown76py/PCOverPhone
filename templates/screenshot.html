@@ -1,0 +1,108 @@
+{% include "base.html" %}
+{% block content %}
+<body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.css') }}">
+    <h3>Captures d'écran de votre PC</h3>
+    {% if not authorized %}
+        <p>Vous devrez d'abord vous authentifier sur votre PC.</p>
+        <center>
+            <div class="container" style="margin-bottom: 12px">
+                <button type="createapp" id="createapp" class="btn btn-dark">Demander les permissions définitives</button>
+                <button id="createappwait" class="btn btn-dark" type="button" disabled style='background-color: #2D3338'>
+                    <span class="spinner-border spinner-border-sm" role="status" ></span>
+                    <span class="visually-hidden"> Autorisez l'authentification sur votre PC</span>
+                </button>
+                <button disabled id=denied type="button" class="btn btn-danger">Requête refusée</button>
+                <button disabled id=error type="button" class="btn btn-danger">Erreur, réponse inattendue</button>
+                <button disabled id=authorized type="button" class="btn btn-success">Requête acceptée. Relancez la page.</button>
+    
+                <script>
+                    $(function() {
+                        $('#denied').hide();
+                        $('#error').hide();
+                        $('#authorized').hide();
+                        $('#createappwait').hide();
+                        $('#createapp').on('click', function(e) {
+                            $('#createapp').hide();
+                            $('#createappwait').show();
+    
+                            $.ajax({
+                                url: '/screenshots',
+                                async: true,
+                                method: "POST",
+                                dataType: 'json',
+                                success: function(data) {
+                                    authorized = data['authorized'];
+                                    authorization = data['authorization'];
+                                    $('#createappwait').hide();
+                                    if (authorized==true) {
+                                        $('#authorized').show();
+                                    } else if (authorized==false) {
+                                        $('#denied').show();
+                                    } else {
+                                        $('#error').show();
+                                    }
+                                }
+                            });
+                        });
+                    });
+                </script>
+            </div>
+        </center>
+    {% else %}
+    <center>
+        <div class="container" style="margin-bottom: 12px">
+            <button type="createapp" id="createapp" class="btn btn-dark">Demander une capture</button>
+            <button id="createappwait" class="btn btn-dark" type="button" disabled style='background-color: #2D3338'>
+                <span class="spinner-border spinner-border-sm" role="status" ></span>
+                <span class="visually-hidden"> Écran en cours de capture...</span>
+            </button>
+            <button disabled id=error type="button" class="btn btn-danger">Une erreur est survenue lors de la capture.</button>
+            <button disabled id=uac type="button" class="btn btn-danger">Une fenêtre demandant les permissions administrateur est affichée sur le PC, il est donc impossible de prendre une capture d'écran.</button>
+            <button disabled id=authorized type="button" class="btn btn-success">Requête acceptée, vous serez redirigé bientôt...</button>
+
+            <script>
+                $(function() {
+                    $('#error').hide();
+                    $('#authorized').hide();
+                    $('#uac').hide();
+                    $('#createappwait').hide();
+                    $('#createapp').on('click', function(e) {
+                        $('#createapp').hide();
+                        $('#createappwait').show();
+
+                        $.ajax({
+                            url: '/screenshots/take',
+                            async: true,
+                            method: "GET",
+                            dataType: 'json',
+                            success: function(data) {
+                                authorized = data['authorized'];
+                                photoid = data['pid'];
+                                $('#createappwait').hide();
+                                if (authorized==true) {
+                                    $('#authorized').show();
+                                    setTimeout(function(){window.location.href = `/screenshots?pid=${photoid}`;}, 500);
+                                } else {
+                                    if(data.includes("uac")) { $('#uac').show(); } else { $('#error').show(); }
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+        </center>
+        {% if screenshot_available %}
+            <img src="static/screenshots/{{ screenshot_code }}.png" alt="REQUESTED SCREENSHOT - ID {{ screenshot_code }}" style="width:1280px;height:720px;">
+            <center><p><b>Screenshot ID:</b> {{ screenshot_code }}</p></center>
+        {% endif %}
+    {% endif %}
+
+
+    
+</body>
+{% endblock %}
+
+{% include "footer.html" %} 

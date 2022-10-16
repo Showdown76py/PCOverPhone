@@ -1,0 +1,119 @@
+
+<body>
+    {%include "base.html"%}
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.css') }}">
+    {% if posted %}
+        {% if denied %}
+        <h3>Créez votre application en ligne</h3>
+        <div class="alert alert-danger" role="alert">
+            <b>Attention: </b>votre ajout n'a pas été effectué: votre clé a déjà été utilisée.
+        </div>
+        {% else %}
+        <h3>Créez votre application en ligne</h3>
+        <div class="container-fluid">
+            <div class="alert alert-success" role="alert">
+                <b>Attention: </b>ajouté ! Vous pouvez désormais l'utiliser <a href='/opencustom'>ici.</a>
+            </div>
+        </div>
+        {% endif %}
+    {% else %}
+        {% if authorized %}
+            <div class="alert alert-warning" role="alert">
+                <b>Attention: </b>si vous quittez cette page, vous devrez re-effectuer une demande.
+            </div>
+            <h3>Créez votre application en ligne</h3>
+            <div class="container">
+                <p>Insérez ci-dessous le lien à ouvrir.</p>
+                <form method="post">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1" required>Nom de l'action</span>
+                        <input type="text" class="form-control" id="name" name="name" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxLength='48'  placeholder="Discord" aria-describedby="basic-addon1">
+                    </div><br/>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="app" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="btnradio1">Application</label>
+                    
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="cmd" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio2">Commande Windows</label>
+                    
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" value="website" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio3">Site Web</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" value="keyboard" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio4">Clavier</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" value="python" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio5">Script Python</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" value="gamekey" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio5">Touche pour jeu (seulement une touche EN MINISCULE)</label>
+
+                        
+                    </div><br/><br/>
+
+
+                    <div class="input-group">
+                        <span class="input-group-text">Description</span>
+                        <textarea class="form-control" name="description" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxLength='512'  required></textarea>
+                    </div><br/>
+
+                    <div class="input-group">
+                        <span class="input-group-text">Action (URL, code, commande, touches, ...)</span>
+                        <textarea class="form-control" name="action" id="action" required></textarea>
+                    </div><br/>
+
+                    
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Nom du bouton</span>
+                        <input required type="text" class="form-control" id="button" name="button" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxLength='48' placeholder="Démarrer" aria-describedby="basic-addon1">
+                    </div><br/>
+                    <br/> 
+                    <div id="enterorno">
+                        <h6>Souhaitez-vous automatiquement presser ENTRÉE à la fin de l'écriture</h6>
+                        <select name="+btnradio" class="form-select" aria-label="Default select example">
+                            <option value="true" selected>Oui</option>
+                            <option value="false">Non</option>
+                          </select><br/><br/>
+                    </div><br/>
+                    <button class="btn btn-primary" id="submit">Ajouter</button>
+                </form>
+                
+
+            </div>
+            
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+            <script>
+            $('#enterorno').hide();
+            $('input[type="radio"][name="btnradio"]').on('change',function(){
+                var obj = $(this);
+                if(obj.val() != "keyboard"){
+                    // when user select yes
+                    $('#enterorno').fadeOut();
+                }else{
+                    // when user select no
+                    $('#enterorno').fadeIn();
+                    $('#enterorno').find("input").val("");
+                }
+                });
+            </script>
+            
+        {% else %}
+        <div class="container-fluid" style='margin-top: 15px;'>
+            <center>
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                    <div>
+                        <center>Vous n'avez pas fourni de clé d'autorisation, ou votre clé est interdite.<br/>Vous pouvez quitter cette page et demander une clé d'autorisation.</center>
+                        <button class='btn btn-warning btn-xs' onclick='window.location.href = "/"'>Retourner au menu</button>
+                    </div>
+                    </div>
+                </div>
+            </center>
+        </div>
+        {% endif %}
+    {% endif %}
+    
+</body>
+
+{% include "footer.html" %} 

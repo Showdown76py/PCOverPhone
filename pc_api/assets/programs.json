@@ -1,0 +1,28 @@
+{
+    "programs": {
+        "Explorateur de fichiers": {
+            "executable": "explorer"
+        },
+        "Calculatrice": {
+            "executable": "calc"
+        },
+        "Spotify": {
+            "executable": "C:\\Users\\lony7\\AppData\\Roaming\\Spotify\\Spotify.exe"
+        },
+        "Bloc-note": {
+            "executable": "notepad"
+        },
+        "YouTube": {
+            "executable": "start chrome https://youtube.com/"
+        },
+        "Discord": {
+            "executable": "C:\\Users\\lony7\\AppData\\Local\\DiscordDevelopment\\Update.exe"
+        },
+        "VSCode": {
+            "executable": "code"
+        },
+        "ÉTEINDRE PC": {
+            "executable": "shutdown /s /t 20"
+        }
+    }
+}
