@@ -1,0 +1,34 @@
+        <!-- <div class='ctm-container' style='padding: 40px; padding-left: 80px; padding-right: 80px'>
+            {% for prog in e %}
+                <div class='row'>
+                    <div class='col-6'>
+                        <button class='btn btn-success btn-lg btn-block' type="submit" name='sub' style="background-color: #282828; color: rgb(215, 215, 215); border-color: rgb(5, 5, 5); margin-bottom: 15px" onclick="sendRequest('{{ prog[0][0] }}')">{{ prog[0][1] }}</button>
+                    </div>
+                    {% if len(prog) == 2 %}
+                    <div class='col-6'>
+                        <button class='btn btn-success btn-lg btn-block' type="submit" name='sub' style="background-color: #282828; color: rgb(215, 215, 215); border-color: rgb(5, 5, 5); margin-bottom: 15px" onclick="sendRequest('{{ prog[1][0] }}')">{{ prog[1][1] }}</button>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <h1 id='kmhs'>-- km/h</h1>
+
+        <script>
+            function setKmH() {
+                $.ajax({
+                    url: '/bs21/getkmh',
+                    async: true,
+                    method: "GET",
+                    dataType: 'json',
+                    success: function(data) {
+                        document.getElementById('kmhs').innerText = data['result'];
+                    }   
+                    
+                });
+            }
+            setInterval(function(){ 
+                setKmH();
+            }, 10);
+        </script>-->
+        

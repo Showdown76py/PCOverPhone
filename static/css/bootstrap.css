@@ -4,7 +4,8 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-
+ @import url('/static/css/mobile.css') screen and (max-width: 1000px);
+ @import url('/static/css/desktop.css') screen and (min-width: 1000px);
  :root {
     --blue: #007bff;
     --indigo: #6610f2;
@@ -8130,10 +8131,9 @@ button.bg-dark:hover {
 
 .fixed-bottom {
     position: fixed;
-    right: 0;
-    bottom: 0;
     left: 0;
-    z-index: 1030
+    bottom: 0;
+    width: 100%;
 }
 
 @supports ((position:-webkit-sticky) or (position:sticky)) {

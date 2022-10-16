@@ -1,3 +1,6 @@
 *.png
 *.log
 __pycache__/
+*.donotedit
+credentials.json
+customactions.json

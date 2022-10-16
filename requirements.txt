@@ -3,3 +3,4 @@ zroya
 easygui
 pynput
 pyautogui
+pytesseract

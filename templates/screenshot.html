@@ -95,7 +95,13 @@
         </div>
         </center>
         {% if screenshot_available %}
-            <img src="static/screenshots/{{ screenshot_code }}.png" alt="REQUESTED SCREENSHOT - ID {{ screenshot_code }}" style="width:1280px;height:720px;">
+            <img id="ilb" src="static/screenshots/{{ screenshot_code }}.png" alt="REQUESTED SCREENSHOT - ID {{ screenshot_code }}" style="width:100%;height:720px;">
+            <script>
+                // calculate height depending of the width of the screen
+                var width = $(window).width();
+                var height = width * 0.5625;
+                $('img').css('height', height);
+            </script>
             <center><p><b>Screenshot ID:</b> {{ screenshot_code }}</p></center>
         {% endif %}
     {% endif %}
